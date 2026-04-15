@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "631117020979",
+    "project_id": "alertacidadao-cb6e6",
+    "storage_bucket": "alertacidadao-cb6e6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631117020979:android:0765ab20dae42f0d1a0846",
+        "android_client_info": {
+          "package_name": "br.com.penielsystem.alerta_cidadao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "631117020979-ai6651n49i96iujkaq4cff99il8c29jn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.penielsystem.alerta_cidadao",
+            "certificate_hash": "7b8d898e8b8c40fd0c91dece004851a96cff27bd"
+          }
+        },
+        {
+          "client_id": "631117020979-71lj7ks8h41tr17413ih3cmvppp4if5l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTTpE3jA9_GM4rBBsDI5KJbJo4-OGjy9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "631117020979-71lj7ks8h41tr17413ih3cmvppp4if5l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "631117020979-b422gkddq9oouh963909m395oar32a1f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.alertaCidadao"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
