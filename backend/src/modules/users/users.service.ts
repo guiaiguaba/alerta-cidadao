@@ -30,10 +30,11 @@ export class UsersService {
       .first();
     if (!user) throw new NotFoundException('Usuário não encontrado');
 
+    // CORREÇÃO AQUI: Passando os campos como um array para satisfazer o TypeScript/Knex
     const [updated] = await this.db.knex('users')
       .where({ id: userId, tenant_id: tenantId })
       .update({ role: dto.role })
-      .returning('id', 'email', 'name', 'role');
+      .returning(['id', 'email', 'name', 'role']);
 
     return updated;
   }
