@@ -9,7 +9,7 @@
     "test": "jest",
     "test:cov": "jest --coverage",
     "migrate": "node -e \"require('./dist/infra/database/migrate').runMigrations()\""
-  },
+  }, 
   "dependencies": {
     "@nestjs/common": "^10.3.0",
     "@nestjs/core": "^10.3.0",
