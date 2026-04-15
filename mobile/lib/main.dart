@@ -4,21 +4,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'core/models/ocorrencia_local.dart';
 import 'core/router.dart';
+import 'core/theme/app_theme.dart';
+import 'core/theme/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp();
-
   await Hive.initFlutter();
   Hive.registerAdapter(OcorrenciaLocalAdapter());
   await Hive.openBox<OcorrenciaLocal>('ocorrencias_pendentes');
 
-  runApp(
-    const ProviderScope(
-      child: AlertaCidadaoApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: AlertaCidadaoApp()));
 }
 
 class AlertaCidadaoApp extends ConsumerWidget {
@@ -27,19 +23,16 @@ class AlertaCidadaoApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    final themeAsync = ref.watch(themeNotifierProvider);
+    final themeMode = themeAsync.valueOrNull ?? ThemeMode.dark;
+
     return MaterialApp.router(
       title: 'Alerta Cidadão',
       debugShowCheckedModeBanner: false,
       routerConfig: router,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1D4ED8)),
-        useMaterial3: true,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF1D4ED8),
-          foregroundColor: Colors.white,
-          elevation: 0,
-        ),
-      ),
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
+      themeMode: themeMode,
     );
   }
 }

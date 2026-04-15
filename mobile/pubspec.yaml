@@ -16,6 +16,8 @@ dependencies:
   firebase_messaging: ^14.7.0
   google_sign_in: ^6.2.0
 
+  shared_preferences: ^2.3.5 # Ou a versão mais atual
+
   # HTTP
   dio: ^5.4.0
 

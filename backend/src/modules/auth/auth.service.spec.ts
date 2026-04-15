@@ -12,7 +12,14 @@ const mockKnex = () => {
   chain.insert = jest.fn().mockReturnValue(chain);
   chain.returning = jest.fn().mockResolvedValue([{ id: 'u1', email: 'a@b.com', role: 'citizen' }]);
   chain.fn = { now: jest.fn() };
-  return jest.fn().mockReturnValue(chain);
+  
+  // Criamos a função mock principal
+  const knexFn: any = jest.fn().mockReturnValue(chain);
+  
+  // Atribuímos a propriedade fn diretamente à função mock
+  knexFn.fn = { now: jest.fn() };
+  
+  return knexFn; 
 };
 
 describe('AuthService', () => {
