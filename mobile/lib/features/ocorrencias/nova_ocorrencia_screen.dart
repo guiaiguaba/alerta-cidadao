@@ -120,7 +120,7 @@ class _State extends ConsumerState<NovaOcorrenciaScreen> {
   void _showSuccess(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(msg),
-      backgroundColor: AppColors.low,
+      backgroundColor: AppColors.prioBaixa,
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     ));
@@ -339,7 +339,7 @@ class _MapPreview extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(width: 6, height: 6, decoration: const BoxDecoration(color: AppColors.low, shape: BoxShape.circle)),
+                    Container(width: 6, height: 6, decoration: const BoxDecoration(color: AppColors.prioBaixa, shape: BoxShape.circle)),
                     const SizedBox(width: 6),
                     Text(
                       '${position!.latitude.toStringAsFixed(4)}, ${position!.longitude.toStringAsFixed(4)}',
@@ -466,10 +466,10 @@ class _ErrorBox extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: AppColors.critical.withOpacity(0.1),
+      color: AppColors.prioCritica.withOpacity(0.1),
       borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: AppColors.critical.withOpacity(0.3)),
+      border: Border.all(color: AppColors.prioCritica.withOpacity(0.3)),
     ),
-    child: Text(msg, style: const TextStyle(color: AppColors.critical, fontSize: 13)),
+    child: Text(msg, style: const TextStyle(color: AppColors.prioCritica, fontSize: 13)),
   );
 }

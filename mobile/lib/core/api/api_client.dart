@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-const _baseUrl = String.fromEnvironment(
-  'API_URL',
-  defaultValue: 'https://vps65913.publiccloud.com.br',
-);
+// ── Configure aqui ──────────────────────────────────────────
+// Em produção, troque pela URL real da API
+const _baseUrl = String.fromEnvironment('API_URL', defaultValue: 'http://191.252.100.195:3001');
+const _tenantSlug = String.fromEnvironment('TENANT_SLUG', defaultValue: 'demo');
 
 final apiClientProvider = Provider<ApiClient>((ref) => ApiClient());
 
@@ -17,24 +17,35 @@ class ApiClient {
       baseUrl: _baseUrl,
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 30),
+      headers: {
+        // Envia tenant via header para funcionar sem subdomínio
+        'X-Tenant-Slug': _tenantSlug,
+      },
     ));
 
-    _dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) async {
-        final user = FirebaseAuth.instance.currentUser;
-        if (user != null) {
-          final token = await user.getIdToken();
-          options.headers['Authorization'] = 'Bearer $token';
-        }
-        handler.next(options);
-      },
-      onError: (err, handler) {
-        handler.next(err);
-      },
-    ));
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final user = FirebaseAuth.instance.currentUser;
+          if (user != null) {
+            final token = await user.getIdToken();
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+          handler.next(options);
+        },
+        onError: (err, handler) {
+          // Log detalhado para debug
+          final resp = err.response;
+          if (resp != null) {
+            print('[ApiClient] ${resp.statusCode} ${err.requestOptions.path}: ${resp.data}');
+          }
+          handler.next(err);
+        },
+      ),
+    );
   }
 
-  // Auth
+  // ── Auth ────────────────────────────────────────────────────
   Future<Map<String, dynamic>?> syncUser(String idToken, {String? fcmToken}) async {
     final res = await _dio.post('/auth/sync-user', data: {
       'id_token': idToken,
@@ -43,12 +54,9 @@ class ApiClient {
     return res.data as Map<String, dynamic>?;
   }
 
-  // Ocorrências
+  // ── Ocorrências ─────────────────────────────────────────────
   Future<Map<String, dynamic>> getOcorrencias({
-    String? status,
-    String? prioridade,
-    int page = 1,
-    int limit = 20,
+    String? status, String? prioridade, int page = 1, int limit = 20,
   }) async {
     final res = await _dio.get('/ocorrencias', queryParameters: {
       if (status != null) 'status': status,
@@ -78,13 +86,13 @@ class ApiClient {
     return res.data as Map<String, dynamic>;
   }
 
-  Future<void> uploadImagens(String ocorrenciaId, List<String> filePaths, {String tipo = 'registro'}) async {
-    final formData = FormData();
-    for (final path in filePaths) {
-      formData.files.add(MapEntry('imagens', await MultipartFile.fromFile(path)));
+  Future<void> uploadImagens(String ocorrenciaId, List<String> paths, {String tipo = 'registro'}) async {
+    final form = FormData();
+    for (final p in paths) {
+      form.files.add(MapEntry('imagens', await MultipartFile.fromFile(p)));
     }
-    formData.fields.add(MapEntry('tipo', tipo));
-    await _dio.post('/ocorrencias/$ocorrenciaId/imagens', data: formData);
+    form.fields.add(MapEntry('tipo', tipo));
+    await _dio.post('/ocorrencias/$ocorrenciaId/imagens', data: form);
   }
 
   Future<Map<String, dynamic>> getOcorrencia(String id) async {

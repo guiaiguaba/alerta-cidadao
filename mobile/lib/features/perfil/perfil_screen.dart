@@ -25,7 +25,7 @@ class PerfilScreen extends ConsumerWidget {
 
     final roleConfig = {
       'citizen': ('👤 Cidadão', AppColors.info),
-      'agent':   ('🦺 Agente de Campo', AppColors.medium),
+      'agent':   ('🦺 Agente de Campo', AppColors.prioNormal),
       'admin':   ('⚙️ Administrador', AppColors.orange),
     }[role] ?? ('Usuário', AppColors.info);
 
@@ -120,10 +120,10 @@ class PerfilScreen extends ConsumerWidget {
           // ── Sync status ───────────────────────────────────────
           if (pendentes.isNotEmpty) ...[
             AppCard(
-              borderColor: AppColors.medium.withOpacity(0.4),
+              borderColor: AppColors.prioNormal.withOpacity(0.4),
               child: Row(
                 children: [
-                  const Icon(Icons.cloud_upload_outlined, color: AppColors.medium),
+                  const Icon(Icons.cloud_upload_outlined, color: AppColors.prioNormal),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
@@ -157,7 +157,7 @@ class PerfilScreen extends ConsumerWidget {
                 _actionTile(context, Icons.logout, 'Sair da conta', () async {
                   await ref.read(authNotifierProvider).signOut();
                   if (context.mounted) context.go('/login');
-                }, isDark, color: AppColors.critical),
+                }, isDark, color: AppColors.prioCritica),
               ],
             ),
           ),

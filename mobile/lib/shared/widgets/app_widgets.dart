@@ -49,15 +49,15 @@ class StatusBadge extends StatelessWidget {
   const StatusBadge(this.status, {super.key});
 
   static const _config = {
-    'aberta':       ('Novo',         AppColors.statusAberta),
-    'em_andamento': ('Em atend.',     AppColors.statusAndamento),
-    'resolvida':    ('Concluído',    AppColors.statusResolvida),
-    'cancelada':    ('Cancelado',    AppColors.statusCancelada),
+    'aberta':       ('Novo',         AppColors.stAberta),
+    'em_andamento': ('Em atend.',     AppColors.stAndamento),
+    'resolvida':    ('Concluído',    AppColors.stResolvida),
+    'cancelada':    ('Cancelado',    AppColors.stCancelada),
   };
 
   @override
   Widget build(BuildContext context) {
-    final (label, color) = _config[status] ?? ('—', AppColors.statusCancelada);
+    final (label, color) = _config[status] ?? ('—', AppColors.stCancelada);
     return _pill(label, color);
   }
 }
@@ -68,15 +68,15 @@ class PriorityBadge extends StatelessWidget {
   const PriorityBadge(this.priority, {super.key});
 
   static const _config = {
-    'baixa':   ('• Baixo',  AppColors.low),
-    'normal':  ('• Médio',  AppColors.medium),
-    'alta':    ('• Alto',   AppColors.high),
-    'critica': ('• Crítico',AppColors.critical),
+    'baixa':   ('• Baixo',  AppColors.prioBaixa),
+    'normal':  ('• Médio',  AppColors.prioNormal),
+    'alta':    ('• Alto',   AppColors.prioAlta),
+    'critica': ('• Crítico',AppColors.prioCritica),
   };
 
   @override
   Widget build(BuildContext context) {
-    final (label, color) = _config[priority] ?? ('• Normal', AppColors.medium);
+    final (label, color) = _config[priority] ?? ('• Normal', AppColors.prioNormal);
     return _pill(label, color);
   }
 }
@@ -113,9 +113,9 @@ class SeveritySelector extends StatelessWidget {
   });
 
   static const _options = [
-    ('baixa',  'Baixa',  AppColors.low),
-    ('normal', 'Média',  AppColors.medium),
-    ('alta',   'Alta',   AppColors.critical),
+    ('baixa',  'Baixa',  AppColors.prioBaixa),
+    ('normal', 'Média',  AppColors.prioNormal),
+    ('alta',   'Alta',   AppColors.prioAlta),
   ];
 
   @override
@@ -183,13 +183,13 @@ class CategoryGrid extends StatelessWidget {
 
   static const _icons = {
     'Alagamento':    (Icons.water, AppColors.info),
-    'Deslizamento':  (Icons.landslide_outlined, AppColors.high),
-    'Incêndio':      (Icons.local_fire_department, AppColors.critical),
-    'Elétrica':      (Icons.bolt, AppColors.medium),
+    'Deslizamento':  (Icons.landslide_outlined, AppColors.prioAlta),
+    'Incêndio':      (Icons.local_fire_department, AppColors.prioCritica),
+    'Elétrica':      (Icons.bolt, AppColors.prioNormal),
     'Vendaval':      (Icons.tornado, AppColors.info),
-    'Via':           (Icons.construction, AppColors.medium),
+    'Via':           (Icons.construction, AppColors.prioNormal),
     'Vazamento':     (Icons.water_drop_outlined, AppColors.info),
-    'Outro':         (Icons.warning_amber_outlined, AppColors.medium),
+    'Outro':         (Icons.warning_amber_outlined, AppColors.prioNormal),
     // fallback para categorias dinâmicas do backend
   };
 
@@ -197,7 +197,7 @@ class CategoryGrid extends StatelessWidget {
     for (final entry in _icons.entries) {
       if (nome.toLowerCase().contains(entry.key.toLowerCase())) return entry.value;
     }
-    return (Icons.warning_amber_outlined, AppColors.medium);
+    return (Icons.warning_amber_outlined, AppColors.prioNormal);
   }
 
   @override
@@ -277,7 +277,7 @@ class TimelineItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final dotColor = done ? AppColors.low : (isDark ? AppColors.darkBorder : AppColors.lightBorder);
+    final dotColor = done ? AppColors.prioBaixa : (isDark ? AppColors.darkBorder : AppColors.lightBorder);
 
     return IntrinsicHeight(
       child: Row(

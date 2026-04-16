@@ -49,7 +49,7 @@ class AgentHomeScreen extends ConsumerWidget {
                             children: [
                               Container(
                                 width: 7, height: 7,
-                                decoration: const BoxDecoration(color: AppColors.low, shape: BoxShape.circle),
+                                decoration: const BoxDecoration(color: AppColors.prioBaixa, shape: BoxShape.circle),
                               ),
                               const SizedBox(width: 5),
                               Text(
@@ -72,7 +72,7 @@ class AgentHomeScreen extends ConsumerWidget {
                           top: 8, right: 8,
                           child: Container(
                             width: 8, height: 8,
-                            decoration: const BoxDecoration(color: AppColors.critical, shape: BoxShape.circle),
+                            decoration: const BoxDecoration(color: AppColors.prioCritica, shape: BoxShape.circle),
                           ),
                         ),
                       ],
@@ -365,7 +365,7 @@ class _AgentOcorrenciaCardState extends ConsumerState<_AgentOcorrenciaCard> {
                   icon: const Text('✅', style: TextStyle(fontSize: 14)),
                   label: const Text('Marcar como Resolvida'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.low,
+                    backgroundColor: AppColors.prioBaixa,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
@@ -396,11 +396,11 @@ class _CategoryIcon extends StatelessWidget {
   const _CategoryIcon(this.nome);
 
   static const _map = {
-    'desliz': (Icons.landslide_outlined, AppColors.high),
+    'desliz': (Icons.landslide_outlined, AppColors.prioAlta),
     'alaga':  (Icons.water, AppColors.info),
-    'incên':  (Icons.local_fire_department, AppColors.critical),
-    'elétr':  (Icons.bolt, AppColors.medium),
-    'via':    (Icons.construction, AppColors.medium),
+    'incên':  (Icons.local_fire_department, AppColors.prioCritica),
+    'elétr':  (Icons.bolt, AppColors.prioNormal),
+    'via':    (Icons.construction, AppColors.prioNormal),
     'vazam':  (Icons.water_drop_outlined, AppColors.info),
   };
 
@@ -409,7 +409,7 @@ class _CategoryIcon extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final lower = nome.toLowerCase();
     IconData icon = Icons.warning_amber_outlined;
-    Color color = AppColors.medium;
+    Color color = AppColors.prioNormal;
     for (final e in _map.entries) {
       if (lower.contains(e.key)) { icon = e.value.$1; color = e.value.$2; break; }
     }
