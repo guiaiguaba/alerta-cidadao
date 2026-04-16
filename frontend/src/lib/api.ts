@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 
-// Quando não há subdomínio (acesso por IP direto), usa NEXT_PUBLIC_API_URL
-// Ex: http://191.252.100.195:3001
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL ?? 'http://191.252.100.195:3001',
   timeout: 15000,
-  // Envia tenant via header quando não há subdomínio
   headers: {
+    // Resolve tenant quando nÃ£o hÃ¡ subdomÃ­nio (acesso por IP)
     'X-Tenant-Slug': process.env.NEXT_PUBLIC_TENANT_SLUG ?? 'demo',
   },
 });
@@ -23,8 +21,8 @@ api.interceptors.request.use(async (config) => {
 });
 
 api.interceptors.response.use(
-  r => r,
-  err => {
+  (r) => r,
+  (err) => {
     if (err.response?.status === 401 && typeof window !== 'undefined') {
       window.location.href = '/login';
     }
