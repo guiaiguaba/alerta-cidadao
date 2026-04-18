@@ -1,18 +1,23 @@
 'use client';
 
-const colors: Record<string, string> = {
-  blue: 'bg-blue-50 border-blue-200 text-blue-700',
-  yellow: 'bg-yellow-50 border-yellow-200 text-yellow-700',
-  orange: 'bg-orange-50 border-orange-200 text-orange-700',
-  green: 'bg-green-50 border-green-200 text-green-700',
-  red: 'bg-red-50 border-red-200 text-red-700',
+const colors: Record<string, { border: string; bg: string; text: string }> = {
+  orange: { border: '#FF6B2B', bg: 'rgba(255,107,43,.08)', text: '#FF6B2B' },
+  red:    { border: '#EF4444', bg: 'rgba(239,68,68,.08)',  text: '#EF4444' },
+  yellow: { border: '#EAB308', bg: 'rgba(234,179,8,.08)',  text: '#EAB308' },
+  green:  { border: '#22C55E', bg: 'rgba(34,197,94,.08)',  text: '#22C55E' },
+  gray:   { border: '#6B7280', bg: 'rgba(107,114,128,.08)',text: '#6B7280' },
 };
 
-export function StatsCard({ label, value, color = 'blue' }: { label: string; value: any; color?: string }) {
+export function StatsCard({ label, value, color = 'orange' }: { label: string; value: any; color?: string }) {
+  const c = colors[color] ?? colors.orange;
   return (
-    <div className={`rounded-xl border-2 p-4 ${colors[color] ?? colors.blue}`}>
-      <p className="text-sm font-medium opacity-70">{label}</p>
-      <p className="text-3xl font-bold mt-1">{value}</p>
+    <div style={{
+      borderRadius: 12, padding: '18px 20px',
+      background: '#fff', border: `1px solid #E5E7EB`,
+      borderTop: `3px solid ${c.border}`,
+    }}>
+      <p style={{ fontSize: 34, fontWeight: 800, margin: '0 0 4px', lineHeight: 1, color: '#0F1117' }}>{value}</p>
+      <p style={{ fontSize: 12, color: '#6B7280', margin: 0 }}>{label}</p>
     </div>
   );
 }
