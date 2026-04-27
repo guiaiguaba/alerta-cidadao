@@ -1,0 +1,1 @@
+export { OccurrenceChart } from './index';

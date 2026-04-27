@@ -1,0 +1,1 @@
+export { OccurrenceFiltersBar } from './index';

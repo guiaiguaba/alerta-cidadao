@@ -1,0 +1,31 @@
+{
+  "name": "alerta-cidadao",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plataforma SaaS de Defesa Civil — Alerta Cidadão",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev":         "turbo run start:dev",
+    "build":       "turbo run build",
+    "test":        "turbo run test",
+    "test:cov":    "turbo run test:cov",
+    "lint":        "turbo run lint",
+    "api:dev":     "npm run start:dev --workspace=apps/api",
+    "web:dev":     "npm run dev --workspace=apps/web",
+    "db:migrate":  "npm run prisma:migrate --workspace=apps/api",
+    "db:studio":   "npm run prisma:studio --workspace=apps/api",
+    "docker:up":   "docker compose -f infra/docker/docker-compose.yml up -d",
+    "docker:down": "docker compose -f infra/docker/docker-compose.yml down",
+    "docker:logs": "docker compose -f infra/docker/docker-compose.yml logs -f"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm":  ">=10.0.0"
+  }
+}

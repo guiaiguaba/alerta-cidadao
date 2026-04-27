@@ -1,0 +1,1 @@
+export { OccurrenceRow } from './index';

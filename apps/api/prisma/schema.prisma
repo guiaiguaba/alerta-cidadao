@@ -1,0 +1,49 @@
+// Alerta Cidadão — Prisma Schema
+// Nota: O schema público (tenants) é gerenciado aqui.
+// Os schemas por tenant usam as mesmas migrations aplicadas dinamicamente.
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["public"]
+}
+
+// ==========================================
+// SCHEMA PÚBLICO — Metadados de Tenants
+// ==========================================
+
+model Tenant {
+  id            String   @id @default(uuid())
+  slug          String   @unique
+  name          String
+  displayName   String   @map("display_name")
+  subdomain     String   @unique
+
+  primaryColor   String  @default("#1565C0") @map("primary_color")
+  secondaryColor String  @default("#FF6F00") @map("secondary_color")
+  logoUrl        String? @map("logo_url")
+
+  stateCode    String  @map("state_code")
+  cityIbgeCode String? @map("city_ibge_code")
+  centerLat    Decimal? @map("center_lat") @db.Decimal(10, 8)
+  centerLng    Decimal? @map("center_lng") @db.Decimal(11, 8)
+  defaultZoom  Int     @default(13) @map("default_zoom")
+
+  plan          String   @default("trial")
+  planExpiresAt DateTime? @map("plan_expires_at")
+  maxAgents     Int      @default(10) @map("max_agents")
+
+  isActive   Boolean  @default(true) @map("is_active")
+  schemaName String   @unique @map("schema_name")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tenants")
+  @@schema("public")
+}

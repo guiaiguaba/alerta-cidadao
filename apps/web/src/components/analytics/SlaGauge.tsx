@@ -1,0 +1,1 @@
+export { SlaGauge } from './index';
