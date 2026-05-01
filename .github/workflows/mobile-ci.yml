@@ -23,16 +23,27 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      
+      - name: Clean Flutter Cache
+        run: |
+          rm -rf ~/.pub-cache
+          rm -rf $RUNNER_TOOL_CACHE/flutter          
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: stable
-          cache: true
+          flutter-version: '3.41.9'
+          channel: 'stable'
+          cache: false
 
       - name: Verificar versão Flutter
         run: flutter --version
+
+      - name: Flutter Doctor
+        run: |
+          flutter --version
+          dart --version
+          flutter doctor -v
 
       - name: Instalar dependências
         working-directory: apps/mobile
