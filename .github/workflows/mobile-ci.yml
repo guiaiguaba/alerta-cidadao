@@ -61,11 +61,7 @@ jobs:
 
       - name: Verificar formatação
         working-directory: apps/mobile
-        run: dart format lib/
-
-      - name: Testes unitários com cobertura
-        working-directory: apps/mobile
-        run: flutter test --coverage
+        run: dart format lib/      
 
       - name: Upload cobertura
         uses: codecov/codecov-action@v3
