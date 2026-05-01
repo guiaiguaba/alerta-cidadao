@@ -51,6 +51,8 @@ abstract class AppColors {
   static const statusRejected   = Color(0xFFEF4444);
   static const statusDuplicate  = Color(0xFF6B7280);
 
+  static const violet           = Color(0xFF7C3AED);
+
   // === HELPERS ===
   static Color priorityColor(String priority) {
     switch (priority) {

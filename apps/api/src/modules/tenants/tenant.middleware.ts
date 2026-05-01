@@ -55,17 +55,21 @@ export class TenantMiddleware implements NestMiddleware {
   }
 
   private extractSubdomain(req: Request): string | null {
-    const host = req.hostname; // ex: "iguaba.alertacidadao.com"
+    // 1. Header X-Tenant-Slug tem prioridade — funciona em dev e produção
+    const headerSlug = req.headers['x-tenant-slug'] as string | undefined;
+    if (headerSlug?.trim()) return headerSlug.trim();
+
+    // 2. Subdomínio da URL (produção com domínio próprio)
+    const host      = req.hostname;
     const appDomain = this.config.get<string>('APP_DOMAIN', 'alertacidadao.com');
 
-    // Desenvolvimento: usar header X-Tenant-Slug
-    if (host === 'localhost' || host === '127.0.0.1') {
-      return req.headers['x-tenant-slug'] as string ?? 'demo';
-    }
-
-    // Produção: extrair subdomínio
     if (host.endsWith(`.${appDomain}`)) {
       return host.replace(`.${appDomain}`, '');
+    }
+
+    // 3. Fallback para localhost sem header
+    if (host === 'localhost' || host === '127.0.0.1') {
+      return 'demo';
     }
 
     return null;

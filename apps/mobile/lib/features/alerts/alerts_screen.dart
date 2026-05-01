@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../providers/providers.dart';
-import '../../../models/models.dart';
+import '../../models/alert.dart';
+
 
 // Provider de alertas
 final _alertsProvider = FutureProvider.autoDispose<List<AppAlert>>((ref) async {

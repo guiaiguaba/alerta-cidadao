@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'app.dart';
+import 'main.dart' as app;
 
 Future<void> mainCommon() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +46,7 @@ Future<void> mainCommon() async {
 
 // lib/main_citizen.dart — Flavor CIDADÃO
 // flutter run --flavor citizen --target lib/main_citizen.dart
-import 'main.dart' as app;
+
 
 void main() async {
   // Configurações específicas do flavor cidadão
