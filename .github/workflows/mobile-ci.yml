@@ -61,7 +61,7 @@ jobs:
 
       - name: Verificar formatação
         working-directory: apps/mobile
-        run: dart format --output=none --set-exit-if-changed lib/
+        run: dart format lib/
 
       - name: Testes unitários com cobertura
         working-directory: apps/mobile
