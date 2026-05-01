@@ -4,10 +4,12 @@ on:
   push:
     paths:
       - 'apps/mobile/**'
+      - '.github/workflows/mobile-ci.yml'
     branches: [main, develop]
   pull_request:
     paths:
       - 'apps/mobile/**'
+      - '.github/workflows/mobile-ci.yml'
 
 env:
   FLUTTER_VERSION: '3.41.9'
@@ -34,7 +36,7 @@ jobs:
         with:
           flutter-version: '3.41.9'
           channel: 'stable'
-          cache: false
+          
 
       - name: Verificar versão Flutter
         run: flutter --version
