@@ -1,6 +1,6 @@
 // lib/features/supervisor/supervisor_home_screen.dart
 // App do Supervisor — ocorrências, atribuição a agentes, relatórios e envio de alertas
-
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -740,4 +740,4 @@ class _MetricCard extends StatelessWidget {
       Text(label, style: const TextStyle(fontSize: 10, color: AppColors.textSecondary, fontFamily: 'IBMPlexMono')),
     ]),
   );
-}
+}*/
